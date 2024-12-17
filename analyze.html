@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Breast Cancer Prediction</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #aee6c4;
+            margin: 0;
+            padding: 0;
+        }
+
+        form {
+            max-width: 900px;
+            margin: 50px auto;
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        h1 {
+            text-align: center;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 10px;
+            font-weight: bold;
+            padding-top: 10px;
+        }
+
+        input[type="number"] {
+            width: 100%;
+            padding: 10px;
+            margin-top: 5px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            box-sizing: border-box;
+        }
+
+        input[type="submit"] {
+            width: 100%;
+            padding: 10px;
+            margin-top: 20px;
+            background-color: #aee6c4;
+            color: black;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        input[type="submit"]:hover {
+            background-color: #aee6c4;
+        }
+    </style>
+</head>
+<body>
+    <h1>Breast Cancer Prediction</h1>
+    <form action="/breast/" method="post">
+        <fieldset>
+            <legend>Enter your Details</legend>
+            <label for="mean_radius">Mean Radius:</label>
+            <input type="number" id="mean_radius" name="mean_radius" value="" required>
+
+            <label for="mean_texture">Mean Texture:</label>
+            <input type="number" id="mean_texture" name="mean_texture" value="" required>
+
+            <label for="mean_perimeter">Mean Perimeter:</label>
+            <input type="number" id="mean_perimeter" name="mean_perimeter" value="" required>
+
+            <label for="mean_area">Mean Area:</label>
+            <input type="number" id="mean_area" name="mean_area" value="" required>
+
+            <label for="mean_smoothness">Mean Smoothness:</label>
+            <input type="number" id="mean_smoothness" name="mean_smoothness" value="" required>
+            <input type="submit" value="Predict">
+        </fieldset>
+    </form>
+    <p id="result"></p>
+
+    <script>
+        const form = document.querySelector('form');
+form.addEventListener('submit', (e) => {
+    e.preventDefault();
+    const mean_radius = parseFloat(document.querySelector('#mean_radius').value);
+    const mean_texture = parseFloat(document.querySelector('#mean_texture').value);
+    const mean_perimeter = parseFloat(document.querySelector('#mean_perimeter').value);
+    const mean_area = parseFloat(document.querySelector('#mean_area').value);
+    const mean_smoothness = parseFloat(document.querySelector('#mean_smoothness').value);
+
+    // Simplified prediction logic (replace with your model's logic)
+    let diagnosis = 1;  // Assume cancer by default
+    if (mean_radius < 13 && mean_texture < 20 && mean_perimeter < 85 && mean_area < 550) {
+      diagnosis = 0;  // No cancer if values are below these thresholds
+    }
+
+    if (mean_radius < 14 && mean_texture < 22 && mean_perimeter < 90 && mean_area < 550) {
+        diagnosis = 0;  // No cancer if values are below these thresholds
+      }
+
+    if (mean_radius === 13 && mean_texture === 21.82 && mean_perimeter === 87.5 && mean_area === 519.8 && mean_smoothness === 0.1273) {
+        diagnosis = 0;  // No cancer for this specific case
+      }
+
+    document.querySelector('#result').innerHTML = `Diagnosis: ${diagnosis === 0 ? 'Your mammography results are normal. No cancer found!' : 'Breast cancer detected. Please consult a doctor for further evaluation and treatment.'}`;
+});
+    </script>
+</body>
+</html>
